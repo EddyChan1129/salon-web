@@ -1,69 +1,84 @@
-import Image from "next/image";
+import Link from "next/link";
+import { ClosingCTA, Photo, ServiceRows, ShapeGrid, StylistGrid, WorkGrid } from "./components/editorial";
+import { services, works } from "./salon";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main id="main" tabIndex={-1}>
+      <section className="hero frame" aria-labelledby="hero-title">
+        <div className="hero-copy">
+          <p className="eyebrow hero-eyebrow" data-hero-enter><span />Japanese hair atelier</p>
+          <h1 id="hero-title" data-hero-enter>Hair, in<br /> harmony<br /><em>with you.</em></h1>
+          <p className="hero-description" data-hero-enter>Discover a hairstyle that reflects who you are.</p>
+          <div className="hero-actions" data-hero-enter>
+            <Link className="button button-dark" href="/booking">Book an appointment</Link>
+            <Link className="text-link" href="#discover">Discover your style</Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <figure className="hero-photo" data-hero-image>
+          <Photo src="/images/hero.webp" alt="Long dark layers moving softly around the face in afternoon light" sizes="(max-width: 720px) 100vw, 61vw" preload />
+          <figcaption><Link href="/portfolio/soft-layers">From the lookbook <span>Soft Layers</span></Link></figcaption>
+        </figure>
+      </section>
+
+      <section className="discover section-pad" id="discover">
+        <div className="frame">
+          <div className="section-heading discover-heading">
+            <p className="eyebrow">Discover yourself</p>
+            <h2 data-reveal="text">Beauty begins with<br /><em>knowing yourself.</em></h2>
+            <p data-reveal="copy">Find cuts, lengths and fringes to try based on your face shape and how you like to wear your hair.</p>
+          </div>
+          <ShapeGrid />
+          <Link className="text-link" href="/discover#quiz">Find your face shape</Link>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section className="lookbook section-pad">
+        <div className="frame">
+          <div className="section-heading split-heading">
+            <div><p className="eyebrow">The lookbook</p><h2 data-reveal="text">Selected <em>works.</em></h2></div>
+            <Link className="text-link" href="/portfolio">Explore the lookbook</Link>
+          </div>
+          <WorkGrid items={works.slice(0, 3)} />
+        </div>
+      </section>
+
+      <section className="people section-pad">
+        <div className="frame people-layout">
+          <div className="section-heading">
+            <p className="eyebrow">Our stylists</p>
+            <h2 data-reveal="text">Meet your<br /><em>stylists.</em></h2>
+            <p>Explore each stylist’s approach to cut, colour and texture.</p>
+            <Link className="text-link" href="/stylists">Meet the team</Link>
+          </div>
+          <StylistGrid />
+        </div>
+      </section>
+
+      <section className="menu-section section-pad">
+        <div className="frame">
+          <div className="section-heading split-heading">
+            <div><p className="eyebrow">Service menu</p><h2 data-reveal="text">Care for <em>your hair.</em></h2></div>
+            <Link className="text-link" href="/services">View all services</Link>
+          </div>
+          <ServiceRows items={services.filter((service) => ["cut", "colour", "perm", "hair-treatment"].includes(service.id))} />
+          <p className="fine-print">Sample prices in HKD.</p>
+        </div>
+      </section>
+
+      <section className="atelier-section section-pad">
+        <div className="frame atelier-layout">
+          <div className="atelier-photo" data-reveal="image"><Photo src="/images/atelier.webp" alt="Sunlight across oak counters and arched mirrors in the salon concept" className="atelier-image" /></div>
+          <div className="section-heading">
+            <p className="eyebrow">The atelier</p>
+            <h2 data-reveal="text">Time to<br /><em>slow down.</em></h2>
+            <p>We start with a conversation about how you wear your hair, then consider its natural fall and the time you like to spend styling it.</p>
+            <Link className="text-link" href="/about">Inside the atelier</Link>
+          </div>
+        </div>
+      </section>
+
+      <ClosingCTA />
+    </main>
   );
 }
