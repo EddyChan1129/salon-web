@@ -29,8 +29,12 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Deploy to Cloudflare
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This demo deploys to Cloudflare Workers as static assets. Sign in with `npx wrangler login` on the first deployment.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run deploy:cloudflare
+```
+
+Wrangler prints the deployment URL. Set `SITE_URL` to that origin when rebuilding so social previews link to the hosted image. To test the static export locally, run `npm run build:cloudflare` followed by `npx wrangler dev`.

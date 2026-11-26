@@ -1,12 +1,15 @@
 import type { NextConfig } from "next";
 
+const cloudflareBuild = process.env.CLOUDFLARE_STATIC_EXPORT === "1";
+
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: cloudflareBuild ? "export" : undefined,
+  images: { unoptimized: cloudflareBuild },
   experimental: {
     agentFeedback: true,
   },
-  cacheComponents: true,
-  partialPrefetching: true,
+  cacheComponents: !cloudflareBuild,
+  partialPrefetching: !cloudflareBuild,
   turbopack: {
     rules: {
       "*.css": {
